@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store'; // Adjust the path as needed
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LatestMoviesScreen from './screens/LatestMoviesScreen'; // Adjust the path as needed
+import TicketBookingScreen from './screens/TicketBookingsScreen'; // Adjust the path as needed
+import MoviesScreen from './screens/MoviesScreen'; // Adjust or create this screen if needed
 
-export default function App() {
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="LatestMovies">
+          <Stack.Screen name="LatestMovies" component={LatestMoviesScreen} />
+          <Stack.Screen name="TicketBooking" component={TicketBookingScreen} />
+          <Stack.Screen name="Home" component={MoviesScreen} /> {/* Example HomeScreen */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
